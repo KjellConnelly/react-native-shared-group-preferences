@@ -1,5 +1,5 @@
 
-package com.poppop.RNReactNativeSharedGroupPreferences;
+package com.poppop.rnreactnativesharedgrouppreferences;
 
 import java.util.Arrays;
 import java.util.Collections;
