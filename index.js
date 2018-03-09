@@ -4,16 +4,26 @@ const { RNReactNativeSharedGroupPreferences } = NativeModules
 export default class SharedGroupPreferences {
 
   static async getItem(key, appGroup) {
-    let response = RNReactNativeSharedGroupPreferences.getItem(key, appGroup)
     return new Promise((resolve, reject)=>{
-      resolve("getItem")
+      RNReactNativeSharedGroupPreferences.getItem(key, appGroup, response=>{
+        if (response[0]) {
+          reject(response[0])
+        } else {
+          resolve(response[1])
+        }
+      })
     })
   }
 
   static async setItem(key, value, appGroup) {
-    let response = RNReactNativeSharedGroupPreferences.setItem(key, value, appGroup)
     return new Promise((resolve, reject)=>{
-      resolve("setItem")
+      RNReactNativeSharedGroupPreferences.setItem(key, value, appGroup, response=>{
+        if (response[0]) {
+          reject(response[0])
+        } else {
+          resolve()
+        }
+      })
     })
   }
 }
