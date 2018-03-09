@@ -11,6 +11,10 @@ This module isn't finished yet, and the setup was written by a script. Disregard
 
 ## Getting started
 
+##### Install Latest Github Version
+`$ npm install kjellconnelly/react-native-react-native-shared-group-preferences --save`
+
+##### Install Latest NPM Version
 `$ npm install react-native-react-native-shared-group-preferences --save`
 
 ### Mostly automatic installation
