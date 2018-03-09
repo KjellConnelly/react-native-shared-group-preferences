@@ -1,6 +1,14 @@
 
 # react-native-react-native-shared-group-preferences
 
+## NOT FINISHED
+This module isn't finished yet, and the setup was written by a script. Disregard for now as nothing works yet. Do not use.
+
+#### TODO:
+1) Write iOS Version
+2) Write Android Version
+3) Celebrate
+
 ## Getting started
 
 `$ npm install react-native-react-native-shared-group-preferences --save`
@@ -34,18 +42,10 @@
       compile project(':react-native-react-native-shared-group-preferences')
   	```
 
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNReactNativeSharedGroupPreferences.sln` in `node_modules/react-native-react-native-shared-group-preferences/windows/RNReactNativeSharedGroupPreferences.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using React.Native.Shared.Group.Preferences.RNReactNativeSharedGroupPreferences;` to the usings at the top of the file
-  - Add `new RNReactNativeSharedGroupPreferencesPackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
 
 ## Usage
 ```javascript
-import RNReactNativeSharedGroupPreferences from 'react-native-react-native-shared-group-preferences';
+import RNReactNativeSharedGroupPreferences from 'react-native-react-native-shared-group-preferences'
 
 // TODO: What to do with the module?
 RNReactNativeSharedGroupPreferences;

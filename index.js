@@ -1,6 +1,20 @@
+import { NativeModules } from 'react-native'
+const { RNReactNativeSharedGroupPreferences } = NativeModules
 
-import { NativeModules } from 'react-native';
+export default class SharedGroupPreferences {
+  static async getItem(key) {
+    // RNReactNativeSharedGroupPreferences
+    let item = 'You got an item'
+    return new Promise(resolve=>{
+      resolve(item)
+    })
+  }
 
-const { RNReactNativeSharedGroupPreferences } = NativeModules;
+  static async setItem(key, value) {
+    let error = null
 
-export default RNReactNativeSharedGroupPreferences;
+    return new Promise(resolve=>{
+      resolve(error)
+    })
+  }
+}
