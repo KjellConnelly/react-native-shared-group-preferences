@@ -1,5 +1,11 @@
 
-# react-native-react-native-shared-group-preferences
+# react-native-shared-group-preferences
+
+#### To Know
+- Doesn't work for Expo since this uses native code.
+- iOS & Android ONLY
+- Uses Xcode's Shared Preferences App Groups (iOS) and ??? for Android
+- Once you install via npm, you will need to do some configuration in Xcode for your javascript to access a shared group container.
 
 ## NOT FINISHED
 This module isn't finished yet, and the setup was written by a script. Disregard for now as nothing works yet. Do not use.
@@ -49,9 +55,6 @@ This module isn't finished yet, and the setup was written by a script. Disregard
 
 ## Usage
 ```javascript
-import RNReactNativeSharedGroupPreferences from 'react-native-react-native-shared-group-preferences'
+import SharedGroupPreferences from 'react-native-shared-group-preferences'
 
-// TODO: What to do with the module?
-RNReactNativeSharedGroupPreferences;
 ```
-  
