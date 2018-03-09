@@ -5,11 +5,11 @@ export default class SharedGroupPreferences {
 
   static async getItem(key, appGroup) {
     return new Promise((resolve, reject)=>{
-      RNReactNativeSharedGroupPreferences.getItem(key, appGroup, response=>{
-        if (response[0] != null) {
-          reject(response[0])
+      RNReactNativeSharedGroupPreferences.getItem(key, appGroup, (error, item)=>{
+        if (error != null) {
+          reject(error)
         } else {
-          resolve(response[1])
+          resolve(item)
         }
       })
     })
@@ -17,9 +17,9 @@ export default class SharedGroupPreferences {
 
   static async setItem(key, value, appGroup) {
     return new Promise((resolve, reject)=>{
-      RNReactNativeSharedGroupPreferences.setItem(key, value, appGroup, response=>{
-        if (response[0] != null) {
-          reject(response[0])
+      RNReactNativeSharedGroupPreferences.setItem(key, value, appGroup, error=>{
+        if (error != null) {
+          reject(error)
         } else {
           resolve()
         }

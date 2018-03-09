@@ -26,6 +26,7 @@ RCT_EXPORT_MODULE()
 
   RCT_EXPORT_METHOD(setItem: (NSString *)key: (NSString *)value: (NSString *)appGroup: (RCTResponseSenderBlock) callback) {
     if (![appGroup isEqualToString:appGroupName]) {
+      appGroupName = appGroup;
       mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
     }
     if (mySharedDefaults == nil) {
