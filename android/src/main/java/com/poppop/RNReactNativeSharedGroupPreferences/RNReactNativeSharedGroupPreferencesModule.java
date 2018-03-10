@@ -19,8 +19,8 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
     this.reactContext = reactContext;
   }
 
-  private SharedPreferences getSharedPreferences(String appGroup, int contextMode) {
-    return reactContext.getApplicationContext().getSharedPreferences(appGroup, contextMode);
+  private SharedPreferences getSharedPreferences(String appGroup) {
+    return reactContext.getApplicationContext().getSharedPreferences(appGroup, Context.MODE_PRIVATE);
   }
 
   @Override
@@ -30,16 +30,26 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
 
   @ReactMethod
   public void setItem(String key, String value, String appGroup, final Callback callback) {
-    SharedPreferences pref = getSharedPreferences(appGroup, Context.MODE_WORLD_WRITEABLE);
+/*
+    SharedPreferences pref = getSharedPreferences(appGroup);
     SharedPreferences.Editor editor = pref.edit();
     editor.putString(key, value);
     editor.commit();
+    callback.invoke(null, "");
+    */
+    File sdcard = Environment.getExternalStorageDirectory();
+    File dir = new File(sdcard.getAbsolutePath() + “/dbt/”);
+    dir.mkdir();
+    File file = new File(dir, “data.json”);
+    FileOutputStream os = outStream = new FileOutputStream(file);
+    os.write(value.getBytes());
+    os.close();
     callback.invoke(null, "");
   }
 
   @ReactMethod
   public void getItem(String key, String appGroup, final Callback callback) {
-    SharedPreferences pref = getSharedPreferences(appGroup, Context.MODE_WORLD_READABLE);
+    SharedPreferences pref = getSharedPreferences(appGroup);
     Object value = pref.getAll().get(key);
     if (value != null) {
       callback.invoke(null, value.toString());
