@@ -34,7 +34,7 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
     SharedPreferences.Editor editor = pref.edit();
     editor.putString(key, value);
     editor.commit();
-    callback.invoke(null);
+    callback.invoke("null");
   }
 
   @ReactMethod
