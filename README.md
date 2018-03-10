@@ -4,13 +4,12 @@
 #### To Know
 - Doesn't work for Expo since this uses native code.
 - iOS & Android ONLY
-- Uses Xcode's Shared Preferences App Groups (iOS) and ??? for Android
+- Uses Xcode's Shared Preferences App Groups (iOS) and Public External Storage for Android.
 - Once you install via npm, you will need to do some configuration in Xcode for your javascript to access a shared group container.
 - I tried to model this after React Native's AsyncStorage. Main thing is that you no longer need to do JSON.stringify and JSON.parse when you set/get. Not sure why they make you do that to begin with... but you can set/get an JSONable item using this module.
 - All methods return a promise. So make sure to make your functions async.
+- iOS's data is securely sandboxed within your app group. I couldn't find something as easy to access, or that wouldn't be deleted if you delete an app, so the Android version saves a json file to the android device's external storage. This is good because if the app is deleted, another app can still access the data. But this is bad because any other app can delete/edit/access this file. For this reason, at least for Android, do not store data in it that is sensitive. If you're saving user preferences, fine. But do not save something like credit card numbers or anything like that in here. That would be irresponsible. The file is saved to the user's storage in the following format: ```$storage/$appGroupIdentifier/data.json```. So make sure your appGroupIdentifier is a valid folder name. Reverse dns works fine.
 
-## NOT FINISHED
-This module works for iOS only right now.
 
 #### TODO:
 1) ~~Write iOS Version~~ DONE
@@ -52,7 +51,16 @@ export default class app extends React.Component {
     this.state = {
       username: undefined
     }
-    this.saveUserDataToSharedStorage(userData)
+    // check for permissions on android
+    if (Platform.OS == 'android') {
+      this.dealWithPermissions()
+    } else {
+      this.saveUserDataToSharedStorage(userData)
+    }
+  }
+
+  async dealWithPermissions() {
+    
   }
 
   async saveUserDataToSharedStorage(data) {
@@ -92,5 +100,4 @@ export default class app extends React.Component {
 In Xcode, open your Target and click the ```Capabilities``` tab. Go down to ```App Groups```. Add a preexisting identifier or create a new one. Do the same for all the apps that you plan to have a shared container for. Use this identifier for ```appGroupIdentifier``` when you call the javascript functions.
 
 ## Android Prep Work (incomplete)
-In your Android project, find ```AndroidManifest.xml```. For my RN Project, it is in ```./android/app/src/main/```. Edit this file and all other apps you want to have a shared container for. Inside the first tag: ```<manifest```, add the following: ```android:sharedUserId=""```. Within the double quotes, use your ```appGroupIdentifier```.
-- More to come as I have only got this far.
+- You need Android Permissions for READ & WRITE External Storage. You can get permission using React Native's ```PermissionsAndroid``` module. How you ask for Permissions is up to you, but can be accomplished like in the example above.
