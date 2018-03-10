@@ -46,10 +46,11 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
 
     File extStore = Environment.getExternalStorageDirectory();
     String fileName = "data.json";
-    String path = extStore.getAbsolutePath() + "/" + fileName;
 
     try {
-       File myFile = new File(path);
+      File dir = new File(extStore.getAbsolutePath() + "/" + appGroup + "/");
+      dir.mkdir();
+       File myFile = new File(dir, fileName);
        myFile.createNewFile();
        FileOutputStream fOut = new FileOutputStream(myFile);
        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
@@ -82,6 +83,8 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
     String s = "";
     String fileContent = "";
     try {
+
+
        File myFile = new File(path);
        FileInputStream fIn = new FileInputStream(myFile);
        BufferedReader myReader = new BufferedReader(
