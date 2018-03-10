@@ -38,9 +38,9 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
     callback.invoke(null, "");
     */
     File sdcard = Environment.getExternalStorageDirectory();
-    File dir = new File(sdcard.getAbsolutePath() + “/dbt/”);
+    File dir = new File(sdcard.getAbsolutePath() + "/dbt/");
     dir.mkdir();
-    File file = new File(dir, “data.json”);
+    File file = new File(dir, "data.json");
     FileOutputStream os = outStream = new FileOutputStream(file);
     os.write(value.getBytes());
     os.close();
