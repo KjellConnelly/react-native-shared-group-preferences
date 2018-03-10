@@ -19,8 +19,8 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
     this.reactContext = reactContext;
   }
 
-  private SharedPreferences getSharedPreferences(String appGroup) {
-    return reactContext.getApplicationContext().getSharedPreferences(appGroup, Context.MODE_WORLD_WRITEABLE);
+  private SharedPreferences getSharedPreferences(String appGroup, int contextMode) {
+    return reactContext.getApplicationContext().getSharedPreferences(appGroup, contextMode);
   }
 
   @Override
@@ -30,7 +30,7 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
 
   @ReactMethod
   public void setItem(String key, String value, String appGroup, final Callback callback) {
-    SharedPreferences pref = getSharedPreferences(appGroup);
+    SharedPreferences pref = getSharedPreferences(appGroup, Context.MODE_WORLD_WRITEABLE);
     SharedPreferences.Editor editor = pref.edit();
     editor.putString(key, value);
     editor.commit();
@@ -39,7 +39,7 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
 
   @ReactMethod
   public void getItem(String key, String appGroup, final Callback callback) {
-    SharedPreferences pref = getSharedPreferences(appGroup);
+    SharedPreferences pref = getSharedPreferences(appGroup, Context.MODE_WORLD_READABLE);
     Object value = pref.getAll().get(key);
     if (value != null) {
       callback.invoke(null, value.toString());
