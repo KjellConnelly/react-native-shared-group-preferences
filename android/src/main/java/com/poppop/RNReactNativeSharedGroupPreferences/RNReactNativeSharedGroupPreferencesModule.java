@@ -36,54 +36,36 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
 
   @ReactMethod
   public void setItem(String key, String value, String appGroup, final Callback callback) {
-/*
-    SharedPreferences pref = getSharedPreferences(appGroup);
-    SharedPreferences.Editor editor = pref.edit();
-    editor.putString(key, value);
-    editor.commit();
-    callback.invoke(null, "");
-    */
-
     File extStore = Environment.getExternalStorageDirectory();
     String fileName = "data.json";
 
     try {
       File dir = new File(extStore.getAbsolutePath() + "/" + appGroup + "/");
       dir.mkdir();
-       File myFile = new File(dir, fileName);
-       myFile.createNewFile();
-       FileOutputStream fOut = new FileOutputStream(myFile);
-       OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-       myOutWriter.append(value);
-       myOutWriter.close();
-       fOut.close();
-       callback.invoke(null, "");
+      File myFile = new File(dir, fileName);
+      myFile.createNewFile();
+      FileOutputStream fOut = new FileOutputStream(myFile);
+      OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+      myOutWriter.append(value);
+      myOutWriter.close();
+      fOut.close();
+      callback.invoke(null, "");
     } catch (Exception e) {
-       e.printStackTrace();
-       callback.invoke(0, null);
+      e.printStackTrace();
+      callback.invoke(0, null);
     }
   }
 
   @ReactMethod
   public void getItem(String key, String appGroup, final Callback callback) {
-    /*
-    SharedPreferences pref = getSharedPreferences(appGroup);
-    Object value = pref.getAll().get(key);
-    if (value != null) {
-      callback.invoke(null, value.toString());
-    } else {
-      callback.invoke(0, null);
-    }
-    */
 
     File extStore = Environment.getExternalStorageDirectory();
     String fileName = "data.json";
-    String path = extStore.getAbsolutePath() + "/" + fileName;
+    String path = extStore.getAbsolutePath() + "/" + appGroup + "/" + fileName;
 
     String s = "";
     String fileContent = "";
     try {
-
 
        File myFile = new File(path);
        FileInputStream fIn = new FileInputStream(myFile);
