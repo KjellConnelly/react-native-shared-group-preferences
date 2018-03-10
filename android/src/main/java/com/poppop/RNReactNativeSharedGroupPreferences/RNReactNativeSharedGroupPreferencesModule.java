@@ -45,7 +45,7 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
     */
 
     File extStore = Environment.getExternalStorageDirectory();
-    String fileName = "data.json"
+    String fileName = "data.json";
     String path = extStore.getAbsolutePath() + "/" + fileName;
 
     try {
@@ -65,12 +65,35 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
 
   @ReactMethod
   public void getItem(String key, String appGroup, final Callback callback) {
+    /*
     SharedPreferences pref = getSharedPreferences(appGroup);
     Object value = pref.getAll().get(key);
     if (value != null) {
       callback.invoke(null, value.toString());
     } else {
       callback.invoke(0, null);
+    }
+    */
+
+    File extStore = Environment.getExternalStorageDirectory();
+    String fileName = "data.json";
+    String path = extStore.getAbsolutePath() + "/" + fileName;
+
+    String s = "";
+    String fileContent = "";
+    try {
+       File myFile = new File(path);
+       FileInputStream fIn = new FileInputStream(myFile);
+       BufferedReader myReader = new BufferedReader(
+               new InputStreamReader(fIn));
+
+       while ((s = myReader.readLine()) != null) {
+           fileContent += s + "";
+       }
+       myReader.close();
+       callback.invoke(null, fileContent);
+    } catch (IOException e) {
+       callback.invoke(0, null);
     }
   }
 }
