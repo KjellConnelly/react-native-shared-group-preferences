@@ -1,5 +1,5 @@
 
-package com.poppop.rnreactnativesharedgrouppreferences;
+package com.poppop.RNReactNativeSharedGroupPreferences;
 
 import android.app.Activity;
 import android.content.Context;
