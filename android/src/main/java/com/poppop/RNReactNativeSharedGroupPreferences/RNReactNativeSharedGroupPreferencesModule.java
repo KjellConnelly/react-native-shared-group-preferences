@@ -20,7 +20,7 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
   }
 
   private SharedPreferences getSharedPreferences(String appGroup) {
-    return reactContext.getApplicationContext().getSharedPreferences(appGroup, Context.MODE_PRIVATE);
+    return reactContext.getApplicationContext().getSharedPreferences(appGroup, Context.MODE_WORLD_WRITEABLE);
   }
 
   @Override
@@ -44,7 +44,7 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
     if (value != null) {
       callback.invoke(null, value.toString());
     } else {
-      callback.invoke(0);
+      callback.invoke(0, null);
     }
   }
 }

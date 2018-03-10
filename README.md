@@ -59,8 +59,9 @@ export default class app extends React.Component {
     try {
       await SharedGroupPreferences.setItem("savedData", data, appGroupIdentifier)
       this.loadUsernameFromSharedStorage()
-    } catch(error) {
-      console.log(error)
+    } catch(errorCode) {
+      // errorCode 0 = There is no suite with that name
+      console.log(errorCode)
     }
   }
 
@@ -68,8 +69,9 @@ export default class app extends React.Component {
     try {
       const loadedData = await SharedGroupPreferences.getItem("savedData", appGroupIdentifier)
       this.setState({username:loadedData.name})
-    } catch(error) {
-      console.log(error)
+    } catch(errorCode) {
+      // errorCode 0 = there is no value for that key
+      console.log(errorCode)
     }
   }
 

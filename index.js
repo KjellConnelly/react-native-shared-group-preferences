@@ -9,9 +9,9 @@ export default class SharedGroupPreferences {
         reject(Platform.OS)
       }
 
-      RNReactNativeSharedGroupPreferences.getItem(key, appGroup, (error, item)=>{
-        if (error != null) {
-          reject(error)
+      RNReactNativeSharedGroupPreferences.getItem(key, appGroup, (errorCode, item)=>{
+        if (errorCode != null) {
+          reject(errorCode)
         } else {
           resolve(JSON.parse(item))
         }
@@ -25,9 +25,9 @@ export default class SharedGroupPreferences {
         reject(Platform.OS)
       }
 
-      RNReactNativeSharedGroupPreferences.setItem(key, JSON.stringify(value), appGroup, error=>{
-        if (error != null) {
-          reject(error)
+      RNReactNativeSharedGroupPreferences.setItem(key, JSON.stringify(value), appGroup, errorCode=>{
+        if (errorCode != null) {
+          reject(errorCode)
         } else {
           resolve()
         }
