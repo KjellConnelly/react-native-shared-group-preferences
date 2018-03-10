@@ -5,7 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import java.io.*;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -39,14 +43,24 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
     editor.commit();
     callback.invoke(null, "");
     */
-    File sdcard = Environment.getExternalStorageDirectory();
-    File dir = new File(sdcard.getAbsolutePath() + "/dbt/");
-    dir.mkdir();
-    File file = new File(dir, "data.json");
-    FileOutputStream os = new FileOutputStream(file);
-    os.write(value.getBytes());
-    os.close();
-    callback.invoke(null, "");
+
+    File extStore = Environment.getExternalStorageDirectory();
+    String fileName = "data.json"
+    String path = extStore.getAbsolutePath() + "/" + fileName;
+
+    try {
+       File myFile = new File(path);
+       myFile.createNewFile();
+       FileOutputStream fOut = new FileOutputStream(myFile);
+       OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+       myOutWriter.append(value);
+       myOutWriter.close();
+       fOut.close();
+       callback.invoke(null, "");
+    } catch (Exception e) {
+       e.printStackTrace();
+       callback.invoke(0, null);
+    }
   }
 
   @ReactMethod
