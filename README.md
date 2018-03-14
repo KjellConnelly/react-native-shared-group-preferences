@@ -1,6 +1,9 @@
 
 # react-native-shared-group-preferences
 
+## What is this Module for?
+You have multiple React-Native apps for iOS or Android and want them to be able to share data in a centralized location on the user's device. For example, you have a series of RPG games where all of your apps share the same gold currency. So if in app #1, the user beats the game, they will have a ton of gold. So when the user downloads the next game, they will be able to still use this gold. Cool huh?
+
 #### To Know
 - Doesn't work for Expo since this uses native code.
 - iOS & Android ONLY
@@ -13,7 +16,7 @@
 
 #### TODO:
 1) ~~Write iOS Version~~ DONE
-2) ~~Write Android Version~~ Semi-tested, Done for now
+2) ~~Write Android Version~~ DONE
 3) Double check this works in the app I'm working on.
 4) Celebrate
 
@@ -22,7 +25,7 @@
 ##### Install Latest Github Version
 `$ npm install --save git+https://git@github.com/kjellconnelly/react-native-shared-group-preferences.git`
 
-##### Install Latest NPM Version (Not uploaded to NPM yet)
+##### Install Latest Stable NPM Version
 `$ npm install react-native-react-native-shared-group-preferences --save`
 
 ### Mostly automatic installation
