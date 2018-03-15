@@ -26,10 +26,10 @@ You have multiple React-Native apps for iOS or Android and want them to be able 
 `$ npm install --save git+https://git@github.com/kjellconnelly/react-native-shared-group-preferences.git`
 
 ##### Install Latest Stable NPM Version
-`$ npm install react-native-react-native-shared-group-preferences --save`
+`$ npm install react-native-shared-group-preferences --save`
 
 ### Mostly automatic installation
-`$ react-native link react-native-react-native-shared-group-preferences`
+`$ react-native link react-native-shared-group-preferences`
 
 ## API
 - SharedGroupPreferences.setItem(string: key, any: value, string: appGroupIdentifier)
@@ -76,7 +76,10 @@ export default class app extends React.Component {
       if (writeGranted && readGranted) {
         this.saveUserDataToSharedStorage(userData)
       } else {
-        console.log("Data will only be saved within this app and cannot be accessed outside of it.")
+        // You can either limit the user in access to the app's content,
+        // or do a workaround where the user's data is saved using only
+        // within the user's local app storage using something like AsyncStorage
+        // instead. This is only an android issue since it uses read/write external storage.
       }
     } catch (err) {
       console.warn(err)
@@ -120,4 +123,8 @@ export default class app extends React.Component {
 In Xcode, open your Target and click the ```Capabilities``` tab. Go down to ```App Groups```. Add a preexisting identifier or create a new one. Do the same for all the apps that you plan to have a shared container for. Use this identifier for ```appGroupIdentifier``` when you call the javascript functions.
 
 ## Android Prep Work (incomplete)
-- You need Android Permissions for READ & WRITE External Storage. You can get permission using React Native's ```PermissionsAndroid``` module. How you ask for Permissions is up to you, but can be accomplished like in the example above. Android API 23+ needs you to ask for permissions within the app itself. Below 23 and you can just add these permissions your ```AndroidManifest.xml``` file. Not sure the lowest React Native goes, but the app I'm working on targets 23+, so I don't even bother with AndroidManifest.xml
+- You need Android Permissions for READ & WRITE External Storage. You can get permission using React Native's ```PermissionsAndroid``` module. How you ask for Permissions is up to you, but can be accomplished like in the example above. Android API 23+ needs you to ask for permissions within the app itself. Below 23 and you can just add these permissions your ```AndroidManifest.xml``` file. For all versions, you will still need to add these to your manifest. Just you will also need to ask for it in 23+.
+```
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
