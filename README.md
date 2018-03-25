@@ -101,7 +101,8 @@ export default class app extends React.Component {
       const loadedData = await SharedGroupPreferences.getItem("savedData", appGroupIdentifier)
       this.setState({username:loadedData.name})
     } catch(errorCode) {
-      // errorCode 0 = there is no value for that key
+      // errorCode 0 = no group name exists. You probably need to setup your Xcode Project properly.
+      // errorCode 1 = there is no value for that key
       console.log(errorCode)
     }
   }

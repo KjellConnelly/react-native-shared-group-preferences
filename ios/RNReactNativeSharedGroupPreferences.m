@@ -21,6 +21,11 @@ RCT_EXPORT_MODULE()
       return;
     }
 
+    if ([mySharedDefaults valueForKey:key] == nil) {
+      // error code 1 == suite has no value for that key
+      callback(@[@1]);
+      return;
+    }
     callback(@[[NSNull null], [mySharedDefaults valueForKey:key]]);
   }
 
