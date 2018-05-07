@@ -36,49 +36,20 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
 
   @ReactMethod
   public void setItem(String key, String value, String appGroup, final Callback callback) {
-    File extStore = Environment.getExternalStorageDirectory();
-    String fileName = "data.json";
-
-    try {
-      File dir = new File(extStore.getAbsolutePath() + "/" + appGroup + "/");
-      dir.mkdir();
-      File myFile = new File(dir, fileName);
-      myFile.createNewFile();
-      FileOutputStream fOut = new FileOutputStream(myFile);
-      OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-      myOutWriter.append(value);
-      myOutWriter.close();
-      fOut.close();
+      
+      SharedPreferences preferences = getSharedPreferences(appGroup);
+      SharedPreferences.Editor editor = preferences.edit();
+      editor.putString(key, value);
+      editor.apply();
+      
       callback.invoke(null, "");
-    } catch (Exception e) {
-      e.printStackTrace();
-      callback.invoke(0, null);
-    }
   }
 
   @ReactMethod
   public void getItem(String key, String appGroup, final Callback callback) {
 
-    File extStore = Environment.getExternalStorageDirectory();
-    String fileName = "data.json";
-    String path = extStore.getAbsolutePath() + "/" + appGroup + "/" + fileName;
-
-    String s = "";
-    String fileContent = "";
-    try {
-
-       File myFile = new File(path);
-       FileInputStream fIn = new FileInputStream(myFile);
-       BufferedReader myReader = new BufferedReader(
-               new InputStreamReader(fIn));
-
-       while ((s = myReader.readLine()) != null) {
-           fileContent += s + "";
-       }
-       myReader.close();
-       callback.invoke(null, fileContent);
-    } catch (IOException e) {
-       callback.invoke(0, null);
-    }
+      SharedPreferences preferences = getSharedPreferences(appGroup);
+      String value = preferences.getString(key, null);
+      callback.invoke(null, value);
   }
 }
