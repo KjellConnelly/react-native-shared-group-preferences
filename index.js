@@ -3,7 +3,7 @@ const { RNReactNativeSharedGroupPreferences } = NativeModules
 
 export default class SharedGroupPreferences {
 
-  static async getItem(key, appGroup) {
+  static async getItem(key, appGroup, options) {
     return new Promise((resolve, reject)=>{
       if ((Platform.OS != 'ios') && (Platform.OS != 'android')) {
         reject(Platform.OS)
@@ -15,11 +15,11 @@ export default class SharedGroupPreferences {
         } else {
           resolve(JSON.parse(item))
         }
-      })
+      }, options || {})
     })
   }
 
-  static async setItem(key, value, appGroup) {
+  static async setItem(key, value, appGroup, options || {}) {
     return new Promise((resolve, reject)=>{
       if ((Platform.OS != 'ios') && (Platform.OS != 'android')) {
         reject(Platform.OS)
@@ -31,7 +31,7 @@ export default class SharedGroupPreferences {
         } else {
           resolve()
         }
-      })
+      }, options)
     })
   }
 }

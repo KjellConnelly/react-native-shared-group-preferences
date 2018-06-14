@@ -1,6 +1,8 @@
 
 # react-native-shared-group-preferences
 
+## Too Lazy to Test Locally. Make sure to install from NPM as the github version is currently under testing.
+
 ## What is this Module for?
 You have multiple React-Native apps for iOS or Android and want them to be able to share data in a centralized location on the user's device. For example, you have a series of RPG games where all of your apps share the same gold currency. So if in app #1, the user beats the game, they will have a ton of gold. So when the user downloads the next game, they will be able to still use this gold. Cool huh?
 
@@ -32,8 +34,8 @@ You have multiple React-Native apps for iOS or Android and want them to be able 
 `$ react-native link react-native-shared-group-preferences`
 
 ## API
-- SharedGroupPreferences.setItem(string: key, any: value, string: appGroupIdentifier)
-- SharedGroupPreferences.getItem(string: key, string: appGroupIdentifier)
+- SharedGroupPreferences.setItem(string: key, any: value, string: appGroupIdentifier, (optional)object: options)
+- SharedGroupPreferences.getItem(string: key, string: appGroupIdentifier, (optional)object: options)
 
 ## Usage
 ```javascript
@@ -129,3 +131,23 @@ In Xcode, open your Target and click the ```Capabilities``` tab. Go down to ```A
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
+- Some users may want to use Android SharedPreferences instead of Public External Storage. This has the benefit of not having to add the above Permissions prep work. For instance, if you use an extension, you may prefer this. Or maybe you add some settings that I don't know about where SharedPreferences will work for you. If this is the case, just add an optional Options object to the end of your calls like this:
+```javascript
+try {
+  const loadedData = await SharedGroupPreferences.getItem("savedData", appGroupIdentifier, {useAndroidSharedPreferences:true})
+  this.setState({username:loadedData.name})
+} catch(errorCode) {
+  console.log(errorCode)
+}
+```
+or
+```javascript
+  try {
+    await SharedGroupPreferences.setItem("savedData", data, appGroupIdentifier, {useAndroidSharedPreferences:true})
+    this.loadUsernameFromSharedStorage()
+  } catch(errorCode) {
+    // errorCode 0 = There is no suite with that name
+    console.log(errorCode)
+  }
+```
+Options are optional and currently only affect Android. No changes are needed to your code if you want your code to keep working as it did before updating to the current version.
