@@ -35,6 +35,17 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
   }
 
   @ReactMethod
+  public void isAppInstalledAndroid(String packageName, final Callback callback) {
+    PackageManager pm = reactContext.getPackageManager();
+    try {
+      pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+      cb.invoke(true);
+    } catch (Exception e) {
+      cb.invoke(false);
+    }
+  }
+
+  @ReactMethod
   public void setItem(String key, String value, String appGroup, final Callback callback, ReadableMap options) {
     boolean useAndroidSharedPreferences = options.getBoolean("useAndroidSharedPreferences") || false;
 

@@ -3,6 +3,18 @@ const { RNReactNativeSharedGroupPreferences } = NativeModules
 
 export default class SharedGroupPreferences {
 
+  static async isAppInstalledAndroid(packageName) {
+    return new Promise((resolve, reject)=>{
+      RNReactNativeSharedGroupPreferences.isAppInstalledAndroid(packageName, installed=>{
+        if (installed) {
+          resolve()
+        } else {
+          reject()
+        }
+      })
+    })
+  }
+
   static async getItem(key, appGroup, options) {
     return new Promise((resolve, reject)=>{
       if ((Platform.OS != 'ios') && (Platform.OS != 'android')) {

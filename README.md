@@ -152,3 +152,17 @@ or
   }
 ```
 Options are optional and currently only affect Android. No changes are needed to your code if you want your code to keep working as it did before updating to the current version.
+
+## Extras because I'm Lazy
+I've added extra functionality to this module that isn't related because it's it's a pain creating a new npm module and settings everything up.
+
+``javascript
+  // This Android only script lets you check if another app is installed based on package name. The example below is for Facebook.
+  const facebookPackageName = "com.facebook.android"
+  try {
+    const installed = await isAppInstalledAndroid(facebookPackageName)
+    console.log("Facebook is installed on this device")
+  } catch (err) {
+    console.log("Facebook is not installed")
+  }
+``
