@@ -156,7 +156,7 @@ Options are optional and currently only affect Android. No changes are needed to
 ## Extras because I'm Lazy
 I've added extra functionality to this module that isn't related because it's it's a pain creating a new npm module and settings everything up.
 
-``javascript
+```javascript
   // This Android only script lets you check if another app is installed based on package name. The example below is for Facebook.
   const facebookPackageName = "com.facebook.android"
   try {
@@ -165,4 +165,4 @@ I've added extra functionality to this module that isn't related because it's it
   } catch (err) {
     console.log("Facebook is not installed")
   }
-``
+```
