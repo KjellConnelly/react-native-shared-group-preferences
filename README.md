@@ -160,7 +160,7 @@ I've added extra functionality to this module that isn't related because it's it
   // This Android only script lets you check if another app is installed based on package name. The example below is for Facebook.
   const facebookPackageName = "com.facebook.android"
   try {
-    const installed = await isAppInstalledAndroid(facebookPackageName)
+    const installed = await SharedGroupPreferences.isAppInstalledAndroid(facebookPackageName)
     console.log("Facebook is installed on this device")
   } catch (err) {
     console.log("Facebook is not installed")
