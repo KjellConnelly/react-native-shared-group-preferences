@@ -48,7 +48,10 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
 
   @ReactMethod
   public void setItem(String key, String value, String appGroup, ReadableMap options, final Callback callback) {
-    boolean useAndroidSharedPreferences = options.getBoolean("useAndroidSharedPreferences") || false;
+    boolean useAndroidSharedPreferences = false;
+    if (options.hasKey(""useAndroidSharedPreferences"")) {
+      useAndroidSharedPreferences = options.getBoolean("useAndroidSharedPreferences")
+    }
 
     if (useAndroidSharedPreferences) {
       SharedPreferences preferences = getSharedPreferences(appGroup);
@@ -79,7 +82,10 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
 
   @ReactMethod
   public void getItem(String key, String appGroup, ReadableMap options, final Callback callback) {
-    boolean useAndroidSharedPreferences = options.getBoolean("useAndroidSharedPreferences") || false;
+    boolean useAndroidSharedPreferences = false;
+    if (options.hasKey(""useAndroidSharedPreferences"")) {
+      useAndroidSharedPreferences = options.getBoolean("useAndroidSharedPreferences")
+    }
 
     if (useAndroidSharedPreferences) {
       SharedPreferences preferences = getSharedPreferences(appGroup);
