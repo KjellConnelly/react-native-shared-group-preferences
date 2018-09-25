@@ -39,9 +39,9 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
     PackageManager pm = reactContext.getPackageManager();
     try {
       pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-      cb.invoke(true);
+      callback.invoke(true);
     } catch (Exception e) {
-      cb.invoke(false);
+      callback.invoke(false);
     }
   }
 
