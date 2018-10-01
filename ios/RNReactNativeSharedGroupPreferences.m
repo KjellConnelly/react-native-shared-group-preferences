@@ -11,7 +11,7 @@
 }
 RCT_EXPORT_MODULE()
 
-  RCT_EXPORT_METHOD(getItem: (NSString *)key: (NSString *)appGroup: (RCTResponseSenderBlock) callback: (NSDictionary *) options) {
+  RCT_EXPORT_METHOD(getItem: (NSString *)key :(NSString *)appGroup :(NSDictionary *)options :(RCTResponseSenderBlock)callback) {
     if (![appGroup isEqualToString:appGroupName]) {
       mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
     }
@@ -29,7 +29,7 @@ RCT_EXPORT_MODULE()
     callback(@[[NSNull null], [mySharedDefaults valueForKey:key]]);
   }
 
-  RCT_EXPORT_METHOD(setItem: (NSString *)key: (NSString *)value: (NSString *)appGroup: (RCTResponseSenderBlock) callback: (NSDictionary *) options) {
+  RCT_EXPORT_METHOD(setItem: (NSString *)key :(NSString *)value :(NSString *)appGroup :(NSDictionary *)options :(RCTResponseSenderBlock)callback) {
     if (![appGroup isEqualToString:appGroupName]) {
       appGroupName = appGroup;
       mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
