@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   RNReactNativeSharedGroupPreferences
                    DESC
-  s.homepage     = ""
+  s.homepage     = "https://github.com/KjellConnelly/react-native-shared-group-preferences#readme"
   s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "author" => "author@domain.cn" }
