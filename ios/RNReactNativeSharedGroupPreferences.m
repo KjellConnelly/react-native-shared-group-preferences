@@ -1,4 +1,4 @@
-
+#import <Foundation/Foundation.h>
 #import "RNReactNativeSharedGroupPreferences.h"
 
 @implementation RNReactNativeSharedGroupPreferences
@@ -43,5 +43,40 @@ RCT_EXPORT_MODULE()
     [mySharedDefaults setValue:value forKey:key];
     callback(@[[NSNull null]]);
   }
+
+  RCT_EXPORT_METHOD(saveFile: (NSString *)filenameAndKey :(NSString *)urlToFile :(NSString *)appGroup :(NSDictionary *)options :(RCTResponseSenderBlock)callback) {
+    if (![appGroup isEqualToString:appGroupName]) {
+      appGroupName = appGroup;
+      mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
+    }
+    if (mySharedDefaults == nil) {
+      // error code 0 == no user defaults with that suite name available
+      callback(@[@0]);
+      return;
+    }
+
+    NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:urlToFile]];
+    [mySharedDefaults setObject:data forKey:filenameAndKey];
+    callback(@[[NSNull null]]);
+  }
+
+RCT_EXPORT_METHOD(getUrlToFile: (NSString *)filenameAndKey :(NSString *)appGroup :(NSDictionary *)options :(RCTResponseSenderBlock)callback) {
+    if (![appGroup isEqualToString:appGroupName]) {
+        mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
+    }
+    if (mySharedDefaults == nil) {
+        // error code 0 == no user defaults with that suite name available
+        callback(@[@0]);
+        return;
+    }
+    
+    if ([mySharedDefaults valueForKey:filenameAndKey] == nil) {
+        // error code 1 == suite has no value for that key
+        callback(@[@1]);
+        return;
+    }
+    NSString *absolutePath = [[mySharedDefaults URLForKey:key] absolutePath];
+    callback(@[[NSNull null], absolutePath]);
+}
 
 @end

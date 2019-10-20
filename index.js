@@ -48,4 +48,38 @@ export default class SharedGroupPreferences {
       })
     })
   }
+
+  static async saveFile(filenameAndKey, urlToFile, appGroup, inputOptions) {
+    return new Promise((resolve, reject)=>{
+      if ((Platform.OS != 'ios') && (Platform.OS != 'android')) {
+        reject(Platform.OS)
+      }
+
+      const options = inputOptions || {}
+      RNReactNativeSharedGroupPreferences.saveFile(filenameAndKey, urlToFile, appGroup, options, errorCode=>{
+        if (errorCode != null) {
+          reject(errorCode)
+        } else {
+          resolve()
+        }
+      })
+    })
+  }
+
+  static async getUrlToFile(filenameAndKey, appGroup, inputOptions) {
+    return new Promise((resolve, reject)=>{
+      if ((Platform.OS != 'ios') && (Platform.OS != 'android')) {
+        reject(Platform.OS)
+      }
+
+      const options = inputOptions || {}
+      RNReactNativeSharedGroupPreferences.getUrlToFile(filenameAndKey, appGroup, options, (errorCode, item)=>{
+        if (errorCode != null) {
+          reject(errorCode)
+        } else {
+          resolve(JSON.parse(item))
+        }
+      })
+    })
+  }
 }
