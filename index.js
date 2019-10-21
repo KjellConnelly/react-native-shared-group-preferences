@@ -48,7 +48,7 @@ export default class SharedGroupPreferences {
       })
     })
   }
-
+/*
   static async saveFile(filenameAndKey, urlToFile, appGroup, inputOptions) {
     return new Promise((resolve, reject)=>{
       if ((Platform.OS != 'ios') && (Platform.OS != 'android')) {
@@ -82,4 +82,5 @@ export default class SharedGroupPreferences {
       })
     })
   }
+  */
 }

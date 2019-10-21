@@ -39,11 +39,6 @@ You have multiple React-Native apps for iOS or Android and want them to be able 
 - SharedGroupPreferences.setItem(string:key, any:value, string:appGroupIdentifier, (optional)object:options)
 - SharedGroupPreferences.getItem(string:key, string:appGroupIdentifier, (optional)object:options)
 
- *save local files as Shared, and get URL to them. (for example, saving an image from 1 app, and loading in another)*
- ** These 2 functions are still a work in process **
-- SharedGroupPreferences.saveFile(string:filenameAndKey, string:urlToFile, string:appGroup, (optional)object:options)
-- SharedGroupPreferences.getUrlToFile(string:filenameAndKey, string:appGroup, (optional)object:options)
-
 ## Usage
 ```javascript
 import SharedGroupPreferences from 'react-native-shared-group-preferences'
@@ -160,7 +155,7 @@ or
 Options are optional and currently only affect Android. No changes are needed to your code if you want your code to keep working as it did before updating to the current version.
 
 ## Extras because I'm Lazy
-I've added extra functionality to this module that isn't related because it's it's a pain creating a new npm module and settings everything up.
+I've added extra functionality to this module that isn't related because it's it's a pain creating a new npm module and setting everything up.
 
 ```javascript
   // This Android only script lets you check if another app is installed based on package name. The example below is for Facebook.

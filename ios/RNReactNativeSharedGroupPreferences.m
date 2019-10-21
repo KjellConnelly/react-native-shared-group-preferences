@@ -44,6 +44,7 @@ RCT_EXPORT_MODULE()
     callback(@[[NSNull null]]);
   }
 
+/*
   RCT_EXPORT_METHOD(saveFile: (NSString *)filenameAndKey :(NSString *)urlToFile :(NSString *)appGroup :(NSDictionary *)options :(RCTResponseSenderBlock)callback) {
     if (![appGroup isEqualToString:appGroupName]) {
       appGroupName = appGroup;
@@ -69,14 +70,15 @@ RCT_EXPORT_METHOD(getUrlToFile: (NSString *)filenameAndKey :(NSString *)appGroup
         callback(@[@0]);
         return;
     }
-    
+
     if ([mySharedDefaults valueForKey:filenameAndKey] == nil) {
         // error code 1 == suite has no value for that key
         callback(@[@1]);
         return;
     }
-    NSString *absolutePath = [[mySharedDefaults URLForKey:key] absolutePath];
+    NSString *absolutePath = [[mySharedDefaults URLForKey:filenameAndKey] absolutePath];
     callback(@[[NSNull null], absolutePath]);
 }
+*/
 
 @end
