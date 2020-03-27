@@ -32,6 +32,11 @@ You have multiple React-Native apps for iOS or Android and want them to be able 
 `$ npm install react-native-shared-group-preferences --save`
 
 ### Mostly automatic installation
+
+##### New Way (with pod for iOS)
+`$ cd ios && pod install && cd ../`
+
+##### Old Way (for ios and android)
 `$ react-native link react-native-shared-group-preferences`
 
 ## API
