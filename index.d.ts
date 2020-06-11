@@ -1,8 +1,8 @@
 declare module 'react-native-shared-group-preferences' {
   export interface SharedGroupPreferencesStatic {
     isAppInstalledAndroid: (packageName: string) => Promise<void>;
-    getItem: <T = any>(key: string, appGroup: string, options: SharedGroupPreferenceOptions | undefined) => Promise<T>;
-    setItem: <T = any>(key: string, value: T, appGroup: string, options: SharedGroupPreferenceOptions | undefined) => Promise<void>;
+    getItem: <T = any>(key: string, appGroup: string, options?: SharedGroupPreferenceOptions) => Promise<T>;
+    setItem: <T = any>(key: string, value: T, appGroup: string, options?: SharedGroupPreferenceOptions) => Promise<void>;
   }
 
   interface SharedGroupPreferenceOptions {
