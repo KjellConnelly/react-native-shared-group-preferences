@@ -58,6 +58,7 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
       SharedPreferences.Editor editor = preferences.edit();
       editor.putString(key, value);
       editor.apply();
+      callback.invoke(null, "");
     } else {
       File extStore = Environment.getExternalStorageDirectory();
       String fileName = "data.json";
