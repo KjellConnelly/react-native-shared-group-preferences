@@ -26,10 +26,10 @@ You have multiple React-Native apps for iOS or Android and want them to be able 
 ## Getting started
 
 ##### Install Latest Github Version
-`$ npm install --save git+https://git@github.com/kjellconnelly/react-native-shared-group-preferences.git`
+`$ npm i git+https://git@github.com/kjellconnelly/react-native-shared-group-preferences.git`
 
 ##### Install Latest Stable NPM Version
-`$ npm install react-native-shared-group-preferences --save`
+`$ npm i react-native-shared-group-preferences`
 
 ### Mostly automatic installation
 
