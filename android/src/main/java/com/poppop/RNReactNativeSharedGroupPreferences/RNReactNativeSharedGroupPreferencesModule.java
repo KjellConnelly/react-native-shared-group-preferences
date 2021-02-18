@@ -9,13 +9,22 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
+import androidx.core.app.ActivityCompat;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReadableMap;
+
+import android.content.ContentProvider;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.net.Uri;
+import android.database.Cursor;
+import android.widget.Toast;
+
+
 
 public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJavaModule {
 
@@ -60,24 +69,40 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
       editor.apply();
       callback.invoke(null, "");
     } else {
-      File extStore = Environment.getExternalStorageDirectory();
-      String fileName = "data.json";
+      int apiVersion = android.os.Build.VERSION.SDK_INT;
+      /*
+      if (apiVersion >= 30) {
 
-      try {
-        File dir = new File(extStore.getAbsolutePath() + "/" + appGroup + "/");
-        dir.mkdir();
-        File myFile = new File(dir, fileName);
-        myFile.createNewFile();
-        FileOutputStream fOut = new FileOutputStream(myFile);
-        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-        myOutWriter.append(value);
-        myOutWriter.close();
-        fOut.close();
-        callback.invoke(null, "");
-      } catch (Exception e) {
-        e.printStackTrace();
-        callback.invoke(0, null);
-      }
+        // kjellhere /////////
+        String URL = "content://" + appGroup + "/data";
+        Uri CONTENT_URI = Uri.parse(URL);
+
+        ContentValues values = new ContentValues();
+        values.put(key, value);
+        Uri uri = getContentResolver().insert(CONTENT_URI, values);
+////////////////////////
+      } else {
+        */
+        File extStore = Environment.getExternalStorageDirectory();
+        String fileName = "data.json";
+
+        try {
+          File dir = new File(extStore.getAbsolutePath() + "/" + appGroup + "/");
+          dir.mkdir();
+          File myFile = new File(dir, fileName);
+          myFile.createNewFile();
+          FileOutputStream fOut = new FileOutputStream(myFile);
+          OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+          myOutWriter.append(value);
+          myOutWriter.close();
+          fOut.close();
+          callback.invoke(null, "");
+        } catch (Exception e) {
+          e.printStackTrace();
+          callback.invoke(0, null);
+        }
+        //Toast.makeText(this.reactContext, "HELLO! v" + apiVersion, Toast.LENGTH_LONG).show();
+      //}
     }
   }
 
@@ -93,27 +118,52 @@ public class RNReactNativeSharedGroupPreferencesModule extends ReactContextBaseJ
       String value = preferences.getString(key, null);
       callback.invoke(null, value);
     } else {
-      File extStore = Environment.getExternalStorageDirectory();
-      String fileName = "data.json";
-      String path = extStore.getAbsolutePath() + "/" + appGroup + "/" + fileName;
+      int apiVersion = android.os.Build.VERSION.SDK_INT;
+      /*
+      if (apiVersion >= 30) {
+        // kjellhere/////////
+        String URL = "content://" + appGroup + "/data";
+        Uri CONTENT_URI = Uri.parse(URL);
+        Cursor c = getContentResolver().query(CONTENT_URI, null, null, null, null);
 
-      String s = "";
-      String fileContent = "";
-      try {
+        String jsonString = "";
+        int index = c.getColumnIndex(key);
+        while (c.moveToNext()) {
+          jsonString = jsonString + c.getString(index);
+        }
 
-         File myFile = new File(path);
-         FileInputStream fIn = new FileInputStream(myFile);
-         BufferedReader myReader = new BufferedReader(
-                 new InputStreamReader(fIn));
+        Toast.makeText(this.reactContext, "HELLO!", Toast.LENGTH_LONG).show();
+//////////////
+      } else {
+        */
+        File extStore = Environment.getExternalStorageDirectory();
+        String fileName = "data.json";
+        String path = extStore.getAbsolutePath() + "/" + appGroup + "/" + fileName;
 
-         while ((s = myReader.readLine()) != null) {
-             fileContent += s + "";
-         }
-         myReader.close();
-         callback.invoke(null, fileContent);
-      } catch (IOException e) {
-         callback.invoke(0, null);
-      }
+        String s = "";
+        String fileContent = "";
+        try {
+
+           File myFile = new File(path);
+           FileInputStream fIn = new FileInputStream(myFile);
+           BufferedReader myReader = new BufferedReader(
+                   new InputStreamReader(fIn));
+
+           while ((s = myReader.readLine()) != null) {
+               fileContent += s + "";
+           }
+           myReader.close();
+           callback.invoke(null, fileContent);
+        } catch (IOException e) {
+           callback.invoke(0, null);
+        }
+      //}
     }
   }
 }
+
+/*
+class RNReactNativeSharedGroupPreferencesProvider extends ContentProvider {
+
+}
+*/
