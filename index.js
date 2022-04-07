@@ -26,7 +26,20 @@ export default class SharedGroupPreferences {
         if (errorCode != null) {
           reject(errorCode)
         } else {
-          resolve(JSON.parse(item))
+          // resolve(JSON.parse(item))
+          var isJson = false;
+          try {
+            var json = JSON.parse(str);
+            isJson = typeof json === 'object';
+          } catch (e) {
+            isJson = false;
+          }
+
+          if (isJson) {
+            resolve(JSON.parse(item))
+          } else {
+            resolve(item)
+          }
         }
       })
     })
