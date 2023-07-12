@@ -37,9 +37,12 @@ export default class SharedGroupPreferences {
       if ((Platform.OS != 'ios') && (Platform.OS != 'android')) {
         reject(Platform.OS)
       }
-
+      // only stringify if it's not a string already
+      if (typeof value !== 'string') {
+        value = JSON.stringify(value)
+      }
       const options = inputOptions || {}
-      RNReactNativeSharedGroupPreferences.setItem(key, JSON.stringify(value), appGroup, options, errorCode=>{
+      RNReactNativeSharedGroupPreferences.setItem(key, value, appGroup, options, errorCode=>{
         if (errorCode != null) {
           reject(errorCode)
         } else {
