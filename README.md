@@ -7,7 +7,7 @@
 You have multiple React-Native apps for iOS or Android and want them to be able to share data in a centralized location on the user's device. For example, you have a series of RPG games where all of your apps share the same gold currency. So if in app #1, the user beats the game, they will have a ton of gold. So when the user downloads the next game, they will be able to still use this gold. Cool huh?
 
 #### To Know
-- Doesn't work for Expo since this uses native code.
+- It could work for Expo with a config plugin. For example, it can be used on iOS with [`expo-notifee-plugin`](https://github.com/LunatiqueCoder/expo-notifee-plugin) by setting the `appGroups` prop. 
 - iOS & Android ONLY
 - Uses Xcode's Shared Preferences App Groups (iOS) and Public External Storage for Android.
 - Once you install via npm, you will need to do some configuration in Xcode for your javascript to access a shared group container. Android will need Permissions.
