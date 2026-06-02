@@ -28,7 +28,7 @@ export default class SharedGroupPreferences {
         } else {
           var isJson = false;
           try {
-            var json = JSON.parse(str);
+            var json = JSON.parse(item);
             isJson = typeof json === 'object';
           } catch (e) {
             isJson = false;
